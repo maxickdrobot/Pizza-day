@@ -1,11 +1,15 @@
 import Header from './components/Header'
-import Main from './components/Main'
+import Login from './components/Login';
+import Menu from './components/Menu'
 
 function App() {
   return (
     <div className="container">
       <Header />
-      <Main />
+      <main>
+        <Login />
+        <Menu />
+      </main>
     </div>
   )
 }

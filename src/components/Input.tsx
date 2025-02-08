@@ -2,14 +2,15 @@ type InputsType = "text" | "password" | "email" | "phone" | "date";
 
 interface InputProps {
     type: InputsType;
-    placeholder?: string;
+    className?: string;
+    placeholder: string;
     ariaLabel?: string;
 }
 
 const Input = (props: InputProps) => {
-    const { type, placeholder, ariaLabel } = props;
+    const { type, placeholder, className, ariaLabel } = props;
     return (
-        <input type={type} placeholder={placeholder} aria-label={ariaLabel} />
+        <input type={type} placeholder={placeholder} className={className} aria-label={ariaLabel}/>
     )
 }
 
