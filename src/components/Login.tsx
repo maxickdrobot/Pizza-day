@@ -8,7 +8,7 @@ const Login = () => {
             <p className="subtitle">Straight out of the oven, straight to you.</p>
             <p className="welcome">👉 Welcome! Please start by telling us your name:</p>
             <Input type="text" placeholder="Your full name" aria-label="Your full name" />
-            <Button text="Start Order" />
+            <Button text="Start Order" className="btn"/>
         </>
     );
 }

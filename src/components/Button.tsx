@@ -1,11 +1,14 @@
 interface ButtonProps {
     text: string;
+    className?: string;
+    ariaLabel?: string;
+    onClick?: () => void;
 }
 
 const Button = (props: ButtonProps) => {
-    const { text } = props;
+    const { text, className, ariaLabel, onClick } = props;
     return (
-        <button className="btn">{text}</button>
+        <button className={className} aria-label={ariaLabel} onClick={onClick}>{text}</button>
     )
 }
 
