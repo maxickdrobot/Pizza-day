@@ -1,16 +1,13 @@
 import { useState } from "react";
 import Button from "./Button";
+import { IPizza } from "../interfaces";
 
 interface CardsProps {
-    name: string,
-    unitPrice: number,
-    imageUrl: string,
-    ingredients: string[],
-    soldOut: boolean
+    data: IPizza;
 }
 
 const Pizza = (props: CardsProps) => {
-    const { name, unitPrice, imageUrl, ingredients, soldOut } = props;
+    const { data } = props;
 
     const [count, setCount] = useState<number>(0);
 
@@ -26,25 +23,43 @@ const Pizza = (props: CardsProps) => {
 
     return (
         <div className="pizza-item">
-            <img src={imageUrl} alt={name + " Pizza"} className="pizza-image" />
+            <img src={data.imageUrl} alt={data.name + " Pizza"} className="pizza-image" />
             <div className="pizza-info">
-                <h2>{name}</h2>
-                <p className="ingredients">{ingredients.join(", ")}</p>
-                <p className="price">€{unitPrice.toFixed(2)}</p>
+                <h2>{data.name}</h2>
+                <p className="ingredients">{data.ingredients.join(", ")}</p>
+                <p className="price">€{data.unitPrice.toFixed(2)}</p>
             </div>
-            {soldOut ? <p className="sold-out">SOLD OUT</p> : (
-                    <div className="cart-controls">
-                        {count === 0 ? <Button text="ADD TO CART" className="add-to-cart" onClick={handleIncrement} /> : (
-                            <div className="counter">
-                                <Button text="-" className="decrement" aria-label="Decrease quantity" onClick={handleDecrement} />
-                                <span>{count}</span>
-                                <Button text="+" className="increment" aria-label="Increase quantity" onClick={handleIncrement} />
-                            </div>
-                        )}
-                    </div>
-                )}
+            {data.soldOut ? (
+                <p className="sold-out">SOLD OUT</p>
+            ) : (
+                <div className="cart-controls">
+                    {count === 0 ? (
+                        <Button
+                            text="ADD TO CART"
+                            className="add-to-cart"
+                            onClick={handleIncrement}
+                        />
+                    ) : (
+                        <div className="counter">
+                            <Button
+                                text="-"
+                                className="decrement"
+                                aria-label="Decrease quantity"
+                                onClick={handleDecrement}
+                            />
+                            <span>{count}</span>
+                            <Button
+                                text="+"
+                                className="increment"
+                                aria-label="Increase quantity"
+                                onClick={handleIncrement}
+                            />
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     );
-}
+};
 
 export default Pizza;
