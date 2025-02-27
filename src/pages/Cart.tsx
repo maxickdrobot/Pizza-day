@@ -1,13 +1,14 @@
+import { Link } from "react-router";
 import { cartItems } from "../cartData";
-import Button from "./Button";
-import CartItem from "./CartItem";
+import Button from "../components/Button";
+import CartItem from "../components/CartItem";
 
 const Cart = () => {
     return (
         <div className="container">
-            <a href="#" className="back-link">
+            <Link to="/menu" className="back-link">
                 ← Back to menu
-            </a>
+            </Link>
             <h1 className="cart-title">Your cart, maxim</h1>
 
             <div className="cart-items">

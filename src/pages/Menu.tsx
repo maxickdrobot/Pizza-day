@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Pizza from "./Pizza";
+import Pizza from "../components/Pizza";
 import { IPizza } from "../interfaces";
 
 const Menu = () => {
