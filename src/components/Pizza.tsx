@@ -1,6 +1,8 @@
-import { useState } from "react";
 import Button from "./Button";
 import { IPizza } from "../interfaces";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, decrement, increment } from "../redux/slices/cartSlice";
+import { RootState } from "../redux/store";
 
 interface CardsProps {
     data: IPizza;
@@ -8,17 +10,21 @@ interface CardsProps {
 
 const Pizza = (props: CardsProps) => {
     const { data } = props;
+    const dispatch = useDispatch();
+    const cartData = useSelector((state: RootState) => state.cart);
 
-    const [count, setCount] = useState<number>(0);
+    const pizzaInCart = cartData.items.find((item) => item.id === data.id);
 
-    const handleIncrement = () => {
-        setCount(count + 1);
+    const handleAddToCart = () => {
+        dispatch(addToCart(data));
     };
 
-    const handleDecrement = () => {
-        if (count > 0) {
-            setCount(count - 1);
-        }
+    const handleIncrementPizza = () => {
+        dispatch(increment(data.id));
+    };
+
+    const handleDecrementPizza = () => {
+        dispatch(decrement(data.id));
     };
 
     return (
@@ -33,11 +39,11 @@ const Pizza = (props: CardsProps) => {
                 <p className="sold-out">SOLD OUT</p>
             ) : (
                 <div className="cart-controls">
-                    {count === 0 ? (
+                    {pizzaInCart?.quantity === undefined ? (
                         <Button
                             text="ADD TO CART"
                             className="add-to-cart"
-                            onClick={handleIncrement}
+                            onClick={handleAddToCart}
                         />
                     ) : (
                         <div className="counter">
@@ -45,14 +51,14 @@ const Pizza = (props: CardsProps) => {
                                 text="-"
                                 className="decrement"
                                 aria-label="Decrease quantity"
-                                onClick={handleDecrement}
+                                onClick={handleDecrementPizza}
                             />
-                            <span>{count}</span>
+                            <span>{pizzaInCart.quantity}</span>
                             <Button
                                 text="+"
                                 className="increment"
                                 aria-label="Increase quantity"
-                                onClick={handleIncrement}
+                                onClick={handleIncrementPizza}
                             />
                         </div>
                     )}
