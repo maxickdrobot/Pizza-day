@@ -1,43 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Pizza from "../components/Pizza";
-import { IPizza } from "../interfaces";
+import { useDispatch, useSelector } from "react-redux";
+import { getMenu } from "../redux/slices/menuSlice";
+import { AppDispatch, RootState } from "../redux/store";
 
 const Menu = () => {
-    const [pizzas, setPizzas] = useState<IPizza[]>([]);
-    const [fetching, setFetching] = useState<boolean>(true);
-    const [error, setError] = useState<boolean>(false);
+    const dispatch = useDispatch<AppDispatch>();
+    const { menuItems, isLoading, error } = useSelector((state: RootState) => state.menu);
 
     useEffect(() => {
-        const getData = async () => {
-            try {
-                setFetching(true);
-                setError(false);
-                const response = await fetch("https://react-fast-pizza-api.onrender.com/api/menu");
-
-                if (!response.ok) {
-                    throw new Error("Failed to fetch data");
-                }
-
-                const data = await response.json();
-                setPizzas(data.data);
-            } catch (err) {
-                setError(true);
-                console.error("Error fetching data:", err);
-            } finally {
-                setFetching(false);
-            }
-        };
-
-        getData();
-    }, []);
+        dispatch(getMenu());
+    }, [dispatch]);
 
     return (
         <main>
             <div className="menu-container">
-                {fetching && <h2>Loading...</h2>}
-                {error && <h2>Error fetching data((( Please try again later.</h2>}
+                {isLoading && <h2>Loading...</h2>}
+                {error && <h2>{error}</h2>}
 
-                {pizzas.map((pizza) => (
+                {menuItems.map((pizza) => (
                     <Pizza key={pizza.id} data={pizza} />
                 ))}
             </div>
