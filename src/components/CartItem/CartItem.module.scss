@@ -1,0 +1,22 @@
+.cartItem {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.quantityText {
+    color: #666;
+}
+
+.price {
+    font-weight: bold;
+}
+
+.quantityControls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}

@@ -1,8 +1,9 @@
 import { useEffect } from "react";
-import Pizza from "../components/Pizza";
+import Pizza from "../../components/Pizza/Pizza";
 import { useDispatch, useSelector } from "react-redux";
-import { getMenu } from "../redux/slices/menuSlice";
-import { AppDispatch, RootState } from "../redux/store";
+import { getMenu } from "../../redux/slices/menuSlice";
+import { AppDispatch, RootState } from "../../redux/store";
+import styles from "./Menu.module.scss";
 
 const Menu = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -14,7 +15,7 @@ const Menu = () => {
 
     return (
         <main>
-            <div className="menu-container">
+            <div className={styles.menuContainer}>
                 {isLoading && <h2>Loading...</h2>}
                 {error && <h2>{error}</h2>}
 

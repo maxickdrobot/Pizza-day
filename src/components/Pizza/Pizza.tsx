@@ -1,8 +1,9 @@
-import Button from "./Button";
-import { IPizza } from "../interfaces";
+import Button from "../Button/Button";
+import { IPizza } from "../../interfaces";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, decrement, increment } from "../redux/slices/cartSlice";
-import { RootState } from "../redux/store";
+import { addToCart, decrement, increment } from "../../redux/slices/cartSlice";
+import { RootState } from "../../redux/store";
+import styles from "./Pizza.module.scss";
 
 interface CardsProps {
     data: IPizza;
@@ -28,38 +29,37 @@ const Pizza = (props: CardsProps) => {
     };
 
     return (
-        <div className="pizza-item">
-            <img src={data.imageUrl} alt={data.name + " Pizza"} className="pizza-image" />
-            <div className="pizza-info">
+        <div className={styles["pizza-item"]}>
+            <img src={data.imageUrl} alt={`${data.name} Pizza`} className={styles["pizza-image"]} />
+            <div className={styles["pizza-info"]}>
                 <h2>{data.name}</h2>
-                <p className="ingredients">{data.ingredients.join(", ")}</p>
-                <p className="price">€{data.unitPrice.toFixed(2)}</p>
+                <p className={styles.ingredients}>{data.ingredients.join(", ")}</p>
+                <p className={styles.price}>€{data.unitPrice.toFixed(2)}</p>
             </div>
+
             {data.soldOut ? (
-                <p className="sold-out">SOLD OUT</p>
+                <p className={styles["sold-out"]}>SOLD OUT</p>
             ) : (
-                <div className="cart-controls">
-                    {pizzaInCart?.quantity === undefined ? (
-                        <Button
-                            text="ADD TO CART"
-                            className="add-to-cart"
-                            onClick={handleAddToCart}
-                        />
+                <div className={styles["cart-controls"]}>
+                    {!pizzaInCart ? (
+                        <Button onClick={handleAddToCart}>ADD TO CART</Button>
                     ) : (
-                        <div className="counter">
+                        <div className={styles.counter}>
                             <Button
-                                text="-"
-                                className="decrement"
+                                className="quantityBtn"
                                 aria-label="Decrease quantity"
                                 onClick={handleDecrementPizza}
-                            />
+                            >
+                                -
+                            </Button>
                             <span>{pizzaInCart.quantity}</span>
                             <Button
-                                text="+"
-                                className="increment"
+                                className="quantityBtn"
                                 aria-label="Increase quantity"
                                 onClick={handleIncrementPizza}
-                            />
+                            >
+                                +
+                            </Button>
                         </div>
                     )}
                 </div>

@@ -1,8 +1,9 @@
 import { ChangeEvent, useContext, useState } from "react";
-import Button from "../components/Button";
-import Input from "../components/Input";
+import Button from "../../components/Button/Button";
+import Input from "../../components/Input";
 import { useNavigate } from "react-router";
-import { userContext } from "../contexts/UserContext";
+import { userContext } from "../../contexts/UserContext";
+import styles from "./Login.module.scss";
 
 const Login = () => {
     const [name, setName] = useState<string>("");
@@ -22,8 +23,8 @@ const Login = () => {
     return (
         <>
             <h1>The best pizza.</h1>
-            <p className="subtitle">Straight out of the oven, straight to you.</p>
-            <p className="welcome">👉 Welcome! Please start by telling us your name:</p>
+            <p className={styles.subtitle}>Straight out of the oven, straight to you.</p>
+            <p className={styles.welcome}>👉 Welcome! Please start by telling us your name:</p>
             <Input
                 type="text"
                 placeholder="Your full name"
@@ -31,7 +32,7 @@ const Login = () => {
                 value={name}
                 onChange={handleNameChange}
             />
-            <Button text="Start Order" className="btn" onClick={handleStartOrder} />
+            <Button onClick={handleStartOrder}>Start Order</Button>
         </>
     );
 };

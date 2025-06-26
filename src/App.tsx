@@ -1,9 +1,10 @@
 import { Route, Routes } from "react-router";
-import Header from "./components/Header";
-import Login from "./pages/Login";
-import Menu from "./pages/Menu";
-import Cart from "./pages/Cart";
+import Header from "./components/Header/Header";
+import Login from "./pages/Login/Login";
+import Menu from "./pages/Menu/Menu";
+import Cart from "./pages/Cart/Cart";
 import PageNotFound from "./pages/PageNotFound";
+import "./App.scss";
 
 function App() {
     return (
