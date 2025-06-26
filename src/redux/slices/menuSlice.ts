@@ -14,7 +14,7 @@ const initialState: MenuState = {
 };
 
 export const getMenu = createAsyncThunk("menu/getMenu", async () => {
-    const response = await fetch("https://react-fast-pizza-api.onrender.com/api/menu");
+    const response = await fetch("http://localhost:3000/web/menu");
     const data = await response.json();
     return data.data;
 });

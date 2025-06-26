@@ -14,18 +14,18 @@ const Pizza = (props: CardsProps) => {
     const dispatch = useDispatch();
     const cartData = useSelector((state: RootState) => state.cart);
 
-    const pizzaInCart = cartData.items.find((item) => item.id === data.id);
+    const pizzaInCart = cartData.items.find((item) => item.id === data._id);
 
     const handleAddToCart = () => {
         dispatch(addToCart(data));
     };
 
     const handleIncrementPizza = () => {
-        dispatch(increment(data.id));
+        dispatch(increment(data._id));
     };
 
     const handleDecrementPizza = () => {
-        dispatch(decrement(data.id));
+        dispatch(decrement(data._id));
     };
 
     return (

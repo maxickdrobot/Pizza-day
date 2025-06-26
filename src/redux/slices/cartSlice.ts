@@ -16,10 +16,12 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addToCart(state, action: PayloadAction<IPizza>) {
-            const existingItem = state.items.find((item) => item.id === action.payload.id);
+            const id = action.payload._id;
+            const existingItem = state.items.find((item) => item.id === id);
+
             if (!existingItem) {
                 state.items.push({
-                    id: action.payload.id,
+                    id,
                     name: action.payload.name,
                     price: action.payload.unitPrice,
                     quantity: 1,
@@ -27,10 +29,11 @@ const cartSlice = createSlice({
             } else {
                 existingItem.quantity++;
             }
+
             state.totalPrice += action.payload.unitPrice;
         },
 
-        increment(state, action: PayloadAction<IPizza["id"]>) {
+        increment(state, action: PayloadAction<string>) {
             const existingItem = state.items.find((item) => item.id === action.payload);
             if (existingItem) {
                 existingItem.quantity++;
@@ -38,7 +41,7 @@ const cartSlice = createSlice({
             }
         },
 
-        decrement(state, action: PayloadAction<IPizza["id"]>) {
+        decrement(state, action: PayloadAction<string>) {
             const existingItem = state.items.find((item) => item.id === action.payload);
             if (existingItem && existingItem.quantity > 1) {
                 existingItem.quantity--;
@@ -46,7 +49,7 @@ const cartSlice = createSlice({
             }
         },
 
-        deleteInCart(state, action: PayloadAction<IPizza["id"]>) {
+        deleteInCart(state, action: PayloadAction<string>) {
             const existingItem = state.items.find((item) => item.id === action.payload);
             if (existingItem) {
                 state.totalPrice -= existingItem.price * existingItem.quantity;

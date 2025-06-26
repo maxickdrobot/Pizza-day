@@ -17,6 +17,53 @@ const Cart = () => {
         dispatch(clearCart());
     };
 
+    const handleOrder = async () => {
+        if (!user?.id) {
+            alert("You must be logged in to place an order.");
+            return;
+        }
+
+        if (cartData.items.length === 0) {
+            alert("Your cart is empty.");
+            return;
+        }
+
+        const orderData = {
+            user_id: user.id,
+            items: cartData.items.map((item) => item.id),
+            total: cartData.totalPrice,
+        };
+
+        try {
+            const response = await fetch("http://localhost:3000/web/orders", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify(orderData),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || "Failed to create order");
+            }
+
+            const data = await response.json();
+
+            if (data.discountApplied) {
+                alert(`Order placed with 10% loyalty discount! Total: $${data.total}`);
+            } else {
+                alert("Order placed successfully!");
+            }
+
+            dispatch(clearCart());
+        } catch (err) {
+            console.error("Order error:", err);
+            alert("Failed to place order.");
+        }
+    };
+
     return (
         <div className={styles.container}>
             <Link to="/menu" className={styles.backLink}>
@@ -31,7 +78,9 @@ const Cart = () => {
             </div>
 
             <div className={styles.cartActions}>
-                <Button className={styles.orderBtn}>Order pizzas</Button>
+                <Button className={styles.orderBtn} onClick={handleOrder}>
+                    Order pizzas
+                </Button>
                 <Button className={styles.clearBtn} onClick={handleClearCart}>
                     Clear cart
                 </Button>
