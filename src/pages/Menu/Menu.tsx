@@ -12,7 +12,6 @@ const Menu = () => {
     useEffect(() => {
         dispatch(getMenu());
     }, [dispatch]);
-
     return (
         <main>
             <div className={styles.menuContainer}>
@@ -20,7 +19,7 @@ const Menu = () => {
                 {error && <h2>{error}</h2>}
 
                 {menuItems.map((pizza) => (
-                    <Pizza key={pizza.id} data={pizza} />
+                    <Pizza key={pizza._id} data={pizza} />
                 ))}
             </div>
         </main>

@@ -1,12 +1,12 @@
 export interface ICartItem {
-    id: number;
+    id: string;
     name: string;
     price: number;
     quantity: number;
 }
 
 export interface IPizza {
-    id: number;
+    _id: string;
     name: string;
     unitPrice: number;
     imageUrl: string;
